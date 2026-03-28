@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD-JUST | Ruang Aman Duta GenRe</title>
+    <style>
+        /* Pengaturan Dasar */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #050505; color: #e0e0e0; line-height: 1.6; display: flex; justify-content: center; }
+        .app-container { max-width: 480px; width: 100%; background: #0f0f0f; min-height: 100vh; position: relative; overflow-x: hidden; box-shadow: 0 0 20px rgba(200,0,0,0.1); }
+        
+        /* Animasi Splash Screen */
+        #splash { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; background: #050505; z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease-out; }
+        .splash-text { font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; opacity: 0; margin: 10px 0; }
+        .text-respect { color: #ffffff; animation: fadeInOut 1s forwards 0.2s; }
+        .text-protect { color: #d32f2f; animation: fadeInOut 1s forwards 1s; }
+        .text-report { color: #ffffff; animation: fadeIn 1s forwards 1.8s; }
+        @keyframes fadeInOut { 0% {opacity:0; transform:translateY(10px);} 50% {opacity:1; transform:translateY(0);} 100% {opacity:0; transform:translateY(-10px);} }
+        @keyframes fadeIn { 0% {opacity:0; transform:scale(0.9);} 100% {opacity:1; transform:scale(1);} }
+
+        /* Header */
+        .header { background: linear-gradient(135deg, #1a0000, #330000); padding: 30px 20px 20px; text-align: center; border-bottom: 2px solid #d32f2f; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; }
+        .header h1 { color: #ff3333; font-size: 28px; font-weight: 900; letter-spacing: 1px; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(255,0,0,0.3); }
+        .header p { color: #aaaaaa; font-size: 13px; font-weight: 500; }
+
+        .content { padding: 20px; display: none; }
+
+        /* Quotes Dinamis */
+        .quotes-container { background: #1a1a1a; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 25px; border-left: 4px solid #d32f2f; min-height: 80px; display: flex; align-items: center; justify-content: center; }
+        .quotes-text { font-size: 14px; font-style: italic; color: #ffcccc; transition: opacity 0.5s ease; opacity: 1; }
+
+        /* Tombol Utama Darurat */
+        .btn-urgent { display: block; width: 100%; background: #d32f2f; color: #ffffff; text-align: center; padding: 16px; border-radius: 8px; font-size: 16px; font-weight: bold; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(211,47,47,0.4); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(211,47,47,0.7); } 70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(211,47,47,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(211,47,47,0); } }
+
+        /* Section Titles */
+        .section-title { font-size: 15px; color: #ffffff; margin-bottom: 15px; font-weight: 700; border-bottom: 1px solid #333; padding-bottom: 8px; }
+
+        /* Contact Cards (Profesional) */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
+        .contact-item { background: #141414; padding: 12px; border-radius: 8px; border: 1px solid #2a2a2a; text-align: center; text-decoration: none; transition: 0.3s; }
+        .contact-item:hover { background: #222; border-color: #d32f2f; }
+        .contact-item strong { display: block; font-size: 14px; color: #ffeb3b; margin-bottom: 3px; }
+        .contact-item span { font-size: 11px; color: #888; }
+
+        /* Fitur Box */
+        .feature-box { background: #1a1a1a; border-radius: 10px; padding: 18px; margin-bottom: 15px; border: 1px solid #333; border-left: 4px solid #d32f2f; }
+        .feature-box h4 { color: #ffffff; margin-bottom: 5px; font-size: 15px; }
+        .feature-box p { font-size: 12px; color: #999; margin-bottom: 15px; }
+        .btn-outline { display: block; width: 100%; text-align: center; padding: 12px; border: 1px solid #d32f2f; color: #ffcccc; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; background: rgba(211,47,47,0.05); cursor: pointer; }
+
+        /* Perisai Hukum */
+        .legal-shield { background: #0a0a0a; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed #444; }
+        .legal-item { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #222; }
+        .legal-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .legal-item h4 { font-size: 13px; color: #d32f2f; margin-bottom: 3px; }
+        .legal-item p { font-size: 12px; color: #bbb; }
+
+        /* Footer */
+        .footer { text-align: center; padding: 25px 20px; font-size: 12px; color: #666; background: #050505; border-top: 1px solid #1a1a1a; }
+        .footer span { color: #d32f2f; font-weight: bold; }
+
+        /* --- UI CHAT AI POPUP --- */
+        #chat-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        .chat-container { width: 100%; max-width: 440px; background: #141414; border-radius: 12px; overflow: hidden; border: 1px solid #333; display: flex; flex-direction: column; height: 80vh; }
+        .chat-header { background: #220000; padding: 15px; text-align: center; color: white; border-bottom: 1px solid #d32f2f; position: relative; }
+        .chat-header h3 { font-size: 16px; margin: 0; }
+        .chat-header p { font-size: 11px; color: #aaa; margin: 0; }
+        .close-btn { position: absolute; right: 15px; top: 15px; color: #fff; cursor: pointer; font-weight: bold; font-size: 18px; }
+        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0a0a0a; }
+        .msg { padding: 10px 14px; border-radius: 12px; font-size: 13px; max-width: 85%; line-height: 1.4; word-wrap: break-word; }
+        .msg-ai { background: #1a1a1a; color: #ddd; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #333; }
+        .msg-user { background: #d32f2f; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .chat-input-area { display: flex; padding: 10px; background: #141414; border-top: 1px solid #333; }
+        #chat-input { flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #444; background: #050505; color: white; outline: none; font-size: 13px; }
+        #send-btn { background: #d32f2f; color: white; border: none; padding: 10px 15px; margin-left: 8px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div id="splash">
+        <div class="splash-text text-respect">RESPECT</div>
+        <div class="splash-text text-protect">PROTECT</div>
+        <div class="splash-text text-report">REPORT</div>
+    </div>
+
+    <div class="header">
+        <h1>AD-JUST</h1>
+        <p>Aksi Duta Jejaring Untuk Stop TPKS</p>
+    </div>
+
+    <div class="content" id="main-content">
+        <div class="quotes-container">
+            <div class="quotes-text" id="quote-box">"Bernapaslah pelan-pelan. Kamu aman di sini."</div>
+        </div>
+
+        <a href="https://ig.me/m/laradiasa_" class="btn-urgent" target="_blank">🚨 BANTUAN DARURAT (DM IG) 🚨</a>
+
+        <h2 class="section-title">🛡️ Layanan Darurat Profesional</h2>
+        <div class="contact-grid">
+            <a href="tel:129" class="contact-item"><strong>SAPA 129</strong><span>Kementerian PPPA</span></a>
+            <a href="https://wa.me/628111129129" class="contact-item" target="_blank"><strong>WA SAPA 129</strong><span>Chat Whatsapp PPPA</span></a>
+            <a href="tel:110" class="contact-item"><strong>Polisi 110</strong><span>Darurat 24 Jam</span></a>
+            <a href="tel:0213903963" class="contact-item"><strong>Komnas Perempuan</strong><span>Lembaga Perlindungan</span></a>
+            <a href="tel:02178842580" class="contact-item"><strong>Yayasan Pulih</strong><span>Konseling Psikologis</span></a>
+            <a href="https://wa.me/6281388822669" class="contact-item" target="_blank"><strong>LBH APIK</strong><span>Bantuan Advokasi Korban</span></a>
+            <a href="tel:148" class="contact-item"><strong>LPSK</strong><span>Perlindungan Saksi & Korban</span></a>
+            <a href="https://ig.me/m/kemenpppa" class="contact-item" target="_blank"><strong>UPTD PPA</strong><span>Unit Daerah (Cek IG)</span></a>
+        </div>
+
+        <h2 class="section-title">🤝 Ruang Curhat & Lapor</h2>
+        <div class="feature-box">
+            <h4>Ngobrol dengan Duta GenRe</h4>
+            <p>Ceritakan masalahmu secara rahasia. Saya siap mendengarkan dan membantu mencari jalan keluar yang aman.</p>
+            <a href="https://ig.me/m/laradiasa_" class="btn-outline" target="_blank">Kirim Pesan Anonim (IG)</a>
+        </div>
+
+        <div class="feature-box">
+            <h4>💬 Curhat ke AI Sahabat Hukum</h4>
+            <p>AI ini dilatih untuk memahami regulasi TPKS, menenangkan, dan mendengarkan keluh kesahmu tanpa menghakimi 24/7.</p>
+            <button class="btn-outline" onclick="openChat()">Mulai Chat dengan AI</button>
+        </div>
+
+        <h2 class="section-title">⚖️ Perisai Hukummu</h2>
+        <div class="legal-shield">
+            <div class="legal-item">
+                <h4>1. Hukum Selalu Berpihak Padamu</h4>
+                <p>Berdasarkan UU TPKS No. 12 Tahun 2022, sekecil apa pun bentuk pelecehan adalah kejahatan. Kamu adalah korban yang berhak atas keadilan, bukan pihak yang patut disalahkan.</p>
+            </div>
+            <div class="legal-item">
+                <h4>2. Jaminan Kerahasiaan Identitas</h4>
+                <p>Jangan takut namamu tersebar. Pasal 42 UU TPKS mewajibkan aparat penegak hukum merahasiakan identitas korban dari publik dan media massa.</p>
+            </div>
+            <div class="legal-item">
+                <h4>3. Ancaman Online & Sebar Foto (KBGO)</h4>
+                <p>Diancam foto/video pribadimu akan disebar? Pelaku pemerasan siber dan *revenge porn* dapat dipenjara berlapis melalui UU ITE dan UU TPKS.</p>
+            </div>
+            <div class="legal-item">
+                <h4>4. Pelecehan Verbal / Catcalling</h4>
+                <p>Siulan, godaan bernada seksual, atau komentar merendahkan fisik di jalan bukanlah candaan. Tindakan pelecehan non-fisik ini dapat dipidana hingga 9 bulan penjara (Pasal 5 UU TPKS).</p>
+            </div>
+            <div class="legal-item">
+                <h4>5. Hak Pemulihan Sepenuhnya</h4>
+                <p>Korban tidak hanya mendapat keadilan hukum, tetapi juga berhak menerima pemulihan psikologis, medis, dan Restitusi (ganti rugi dari pelaku) yang difasilitasi oleh negara.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        By <span>Adib Al Hakim</span> (12)<br>
+        Ruang Aman & Literasi Remaja
+    </div>
+</div>
+
+<div id="chat-modal">
+    <div class="chat-container">
+        <div class="chat-header">
+            <h3>AI Sahabat Hukum</h3>
+            <p>Aman, Rahasia, Tanpa Menghakimi</p>
+            <span class="close-btn" onclick="closeChat()">✖</span>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="msg msg-ai">Halo. Tarik napas pelan-pelan. Kamu aman di sini. Ada yang ingin kamu ceritakan atau tanyakan tentang perlindunganmu hari ini?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ketik pesanmu di sini..." onkeypress="handleEnter(event)">
+            <button id="send-btn" onclick="sendMessage()">Kirim</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- 1. KONFIGURASI API GROQ (GANTI DENGAN API KEY KAMU) ---
+    const API_KEY = "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"; 
+    
+    // Prompt Rahasia agar AI bertingkah seperti sahabat yang berempati dan paham regulasi
+    const systemPrompt = "Kamu adalah AI 'Sahabat Hukum' dari program AD-JUST buatan Duta GenRe Adib Al Hakim. Tugasmu: mendengarkan keluh kesah remaja soal kekerasan seksual, berikan empati luar biasa, JANGAN MENGHAKIMI, gunakan bahasa gaul tapi sopan (seperti 'kamu', 'aku', 'nggak'). Jika relevan, beritahu bahwa mereka dilindungi oleh UU TPKS No 12 Tahun 2022. Jawab secara singkat, padat, dan menenangkan. Jangan buat jawaban panjang bertele-tele.";
+
+    // Format History Pesan Khusus Groq / OpenAI
+    let conversationHistory = [
+        { "role": "system", "content": systemPrompt }
+    ];
+
+    // --- 2. LOGIKA UI & ANIMASI ---
+    setTimeout(() => {
+        const splash = document.getElementById('splash');
+        const content = document.getElementById('main-content');
+        splash.style.opacity = '0';
+        setTimeout(() => { splash.style.display = 'none'; content.style.display = 'block'; }, 800);
+    }, 3000);
+
+    const quotes = [
+        "Bernapaslah pelan-pelan. Kamu aman di sini.", 
+        "Kamu berharga, lebih dari yang kamu tahu.", 
+        "Tidak ada satu pun dari kejadian itu yang merupakan salahmu.", 
+        "Mencari bantuan adalah tanda kekuatan, bukan kelemahan.",
+        "Kami percaya padamu. Suaramu penting.",
+        "Masa depanmu masih panjang dan cerah. Jangan menyerah."
+    ];
+    let quoteIndex = 0; const quoteBox = document.getElementById('quote-box');
+    setInterval(() => {
+        quoteBox.style.opacity = '0';
+        setTimeout(() => { quoteIndex = (quoteIndex + 1) % quotes.length; quoteBox.textContent = `"${quotes[quoteIndex]}"`; quoteBox.style.opacity = '1'; }, 500);
+    }, 4500);
+
+    // --- 3. LOGIKA CHAT AI (MENGGUNAKAN GROQ API) ---
+    const chatModal = document.getElementById('chat-modal');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+
+    function openChat() { chatModal.style.display = 'flex'; }
+    function closeChat() { chatModal.style.display = 'none'; }
+
+    function handleEnter(e) { if(e.key === 'Enter') sendMessage(); }
+
+    function appendMessage(text, sender) {
+        const div = document.createElement('div');
+        div.className = `msg msg-${sender}`;
+        div.textContent = text;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async function sendMessage() {
+        const text = chatInput.value.trim();
+        if(!text) return;
+        
+        appendMessage(text, 'user');
+        chatInput.value = '';
+        
+        // Simpan input user ke history
+        conversationHistory.push({ "role": "user", "content": text });
+
+        const typingId = "typing-" + Date.now();
+        const typingDiv = document.createElement('div');
+        typingDiv.className = `msg msg-ai`;
+        typingDiv.id = typingId;
+        typingDiv.textContent = "Sedang mengetik...";
+        chatMessages.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+            // Memanggil endpoint Groq API
+            const response = await fetch(`https://api.groq.com/openai/v1/chat/completions`, {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: "llama-3.1-8b-instant", // Model bawaan Groq yang kencang dan akurat
+                    messages: conversationHistory
+                })
+            });
+
+            const data = await response.json();
+            document.getElementById(typingId).remove(); 
+
+            // Menangkap balasan dari Groq
+            if(data.choices && data.choices.length > 0) {
+                const aiText = data.choices[0].message.content;
+                appendMessage(aiText, 'ai');
+                // Simpan balasan AI ke history agar chat nyambung
+                conversationHistory.push({ "role": "assistant", "content": aiText });
+            } else {
+                appendMessage("Maaf, sistem sedang sibuk. Coba lagi nanti ya.", 'ai');
+            }
+        } catch (error) {
+            document.getElementById(typingId).remove();
+            appendMessage("Terjadi kesalahan jaringan. Pastikan kamu terhubung ke internet.", 'ai');
+        }
+    }
+</script>
+
+</body>
+</html>
