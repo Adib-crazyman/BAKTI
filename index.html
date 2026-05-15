@@ -3,78 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AD-JUST | Ruang Aman Duta GenRe</title>
+    <title>BAKTI | Ruang Aman Duta GenRe</title>
     <style>
-        /* Pengaturan Dasar */
+        /* Pengaturan Dasar & Palette Warna Baru yang Lebih Tenang */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #050505; color: #e0e0e0; line-height: 1.6; display: flex; justify-content: center; }
-        .app-container { max-width: 480px; width: 100%; background: #0f0f0f; min-height: 100vh; position: relative; overflow-x: hidden; box-shadow: 0 0 20px rgba(200,0,0,0.1); }
+        body { background-color: #0d0d12; color: #e0e0e0; line-height: 1.6; display: flex; justify-content: center; }
+        .app-container { max-width: 480px; width: 100%; background: #12121a; min-height: 100vh; position: relative; overflow-x: hidden; box-shadow: 0 0 25px rgba(0,0,0,0.5); }
         
         /* Animasi Splash Screen */
-        #splash { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; background: #050505; z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease-out; }
+        #splash { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; background: #0d0d12; z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease-out; }
         .splash-text { font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; opacity: 0; margin: 10px 0; }
         .text-respect { color: #ffffff; animation: fadeInOut 1s forwards 0.2s; }
-        .text-protect { color: #d32f2f; animation: fadeInOut 1s forwards 1s; }
+        .text-protect { color: #e63946; animation: fadeInOut 1s forwards 1s; }
         .text-report { color: #ffffff; animation: fadeIn 1s forwards 1.8s; }
         @keyframes fadeInOut { 0% {opacity:0; transform:translateY(10px);} 50% {opacity:1; transform:translateY(0);} 100% {opacity:0; transform:translateY(-10px);} }
         @keyframes fadeIn { 0% {opacity:0; transform:scale(0.9);} 100% {opacity:1; transform:scale(1);} }
 
-        /* Header */
-        .header { background: linear-gradient(135deg, #1a0000, #330000); padding: 30px 20px 20px; text-align: center; border-bottom: 2px solid #d32f2f; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; }
-        .header h1 { color: #ff3333; font-size: 28px; font-weight: 900; letter-spacing: 1px; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(255,0,0,0.3); }
-        .header p { color: #aaaaaa; font-size: 13px; font-weight: 500; }
+        /* Header Lembut */
+        .header { background: linear-gradient(135deg, #1f0b0f, #2a1115); padding: 35px 20px 25px; text-align: center; border-bottom: 1px solid #3d1c22; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+        .header h1 { color: #e63946; font-size: 30px; font-weight: 900; letter-spacing: 1px; margin-bottom: 5px; }
+        .header p { color: #a89f9f; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; }
 
-        .content { padding: 20px; display: none; }
+        .content { padding: 25px 20px; display: none; }
 
         /* Quotes Dinamis */
-        .quotes-container { background: #1a1a1a; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 25px; border-left: 4px solid #d32f2f; min-height: 80px; display: flex; align-items: center; justify-content: center; }
-        .quotes-text { font-size: 14px; font-style: italic; color: #ffcccc; transition: opacity 0.5s ease; opacity: 1; }
+        .quotes-container { background: rgba(255, 255, 255, 0.03); padding: 18px; border-radius: 12px; text-align: center; margin-bottom: 30px; border-left: 4px solid #e63946; min-height: 80px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .quotes-text { font-size: 14px; font-style: italic; color: #f1faee; transition: opacity 0.5s ease; opacity: 1; line-height: 1.4; }
 
         /* Tombol Utama Darurat */
-        .btn-urgent { display: block; width: 100%; background: #d32f2f; color: #ffffff; text-align: center; padding: 16px; border-radius: 8px; font-size: 16px; font-weight: bold; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(211,47,47,0.4); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(211,47,47,0.7); } 70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(211,47,47,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(211,47,47,0); } }
+        .btn-urgent { display: block; width: 100%; background: #e63946; color: #ffffff; text-align: center; padding: 16px; border-radius: 10px; font-size: 15px; font-weight: bold; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(230, 57, 70, 0.3); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.6); } 70% { transform: scale(1.02); box-shadow: 0 0 0 12px rgba(230, 57, 70, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); } }
 
         /* Section Titles */
-        .section-title { font-size: 15px; color: #ffffff; margin-bottom: 15px; font-weight: 700; border-bottom: 1px solid #333; padding-bottom: 8px; }
+        .section-title { font-size: 16px; color: #ffffff; margin-bottom: 15px; font-weight: 700; border-bottom: 1px solid #2a2a35; padding-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        
+        /* Spacing tambahan untuk title */
+        .mt-30 { margin-top: 30px; }
 
         /* Contact Cards (Profesional) */
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
-        .contact-item { background: #141414; padding: 12px; border-radius: 8px; border: 1px solid #2a2a2a; text-align: center; text-decoration: none; transition: 0.3s; }
-        .contact-item:hover { background: #222; border-color: #d32f2f; }
-        .contact-item strong { display: block; font-size: 14px; color: #ffeb3b; margin-bottom: 3px; }
-        .contact-item span { font-size: 11px; color: #888; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; }
+        .contact-item { background: #1a1a24; padding: 15px 12px; border-radius: 10px; border: 1px solid #2a2a35; text-align: center; text-decoration: none; transition: 0.3s; }
+        .contact-item:hover { background: #222230; border-color: #e63946; transform: translateY(-2px); }
+        .contact-item strong { display: block; font-size: 14px; color: #ffca3a; margin-bottom: 4px; }
+        .contact-item span { font-size: 11px; color: #8d8d99; }
 
         /* Fitur Box */
-        .feature-box { background: #1a1a1a; border-radius: 10px; padding: 18px; margin-bottom: 15px; border: 1px solid #333; border-left: 4px solid #d32f2f; }
-        .feature-box h4 { color: #ffffff; margin-bottom: 5px; font-size: 15px; }
-        .feature-box p { font-size: 12px; color: #999; margin-bottom: 15px; }
-        .btn-outline { display: block; width: 100%; text-align: center; padding: 12px; border: 1px solid #d32f2f; color: #ffcccc; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; background: rgba(211,47,47,0.05); cursor: pointer; }
+        .feature-box { background: rgba(26, 26, 36, 0.7); border-radius: 12px; padding: 20px; margin-bottom: 15px; border: 1px solid #2a2a35; border-left: 4px solid #e63946; }
+        .feature-box h4 { color: #ffffff; margin-bottom: 8px; font-size: 15px; }
+        .feature-box p { font-size: 13px; color: #9a9ab0; margin-bottom: 18px; line-height: 1.5; }
+        .btn-outline { display: block; width: 100%; text-align: center; padding: 12px; border: 1px solid #e63946; color: #ffcccc; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: bold; background: rgba(230, 57, 70, 0.05); cursor: pointer; transition: 0.3s; }
+        .btn-outline:hover { background: rgba(230, 57, 70, 0.15); }
+
+        /* --- FITUR BARU: Ruang Pemulihan --- */
+        .recovery-box { text-align: center; padding: 20px; background: #15151e; border-radius: 12px; border: 1px dashed #3a3a4d; margin-bottom: 30px; }
+        .breathe-container { display: flex; justify-content: center; margin: 25px 0; }
+        .breathe-circle { width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle, rgba(230,57,70,0.8), rgba(26,11,15,0.2)); animation: breathe 8s infinite ease-in-out; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 13px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); border: 2px solid rgba(230,57,70,0.3); }
+        @keyframes breathe { 0% { transform: scale(1); opacity: 0.7; box-shadow: 0 0 10px rgba(230,57,70,0.2); } 50% { transform: scale(1.4); opacity: 1; box-shadow: 0 0 30px rgba(230,57,70,0.5); } 100% { transform: scale(1); opacity: 0.7; box-shadow: 0 0 10px rgba(230,57,70,0.2); } }
+        .recovery-text { font-size: 13px; color: #a89f9f; margin-top: 15px; }
+
+        /* --- FITUR BARU: Alur Pelaporan --- */
+        .timeline { border-left: 2px solid #3a3a4d; padding-left: 20px; margin-left: 10px; margin-bottom: 30px; }
+        .timeline-item { margin-bottom: 20px; position: relative; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item::before { content: ''; position: absolute; left: -27px; top: 3px; width: 12px; height: 12px; background: #e63946; border-radius: 50%; border: 2px solid #12121a; }
+        .timeline-item h4 { font-size: 14px; color: #ffffff; margin-bottom: 4px; }
+        .timeline-item p { font-size: 12px; color: #9a9ab0; }
+
+        /* --- FITUR BARU: Kamus Hukum Interaktif --- */
+        .accordion-container { margin-bottom: 30px; }
+        details { background: #1a1a24; padding: 14px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #2a2a35; cursor: pointer; transition: 0.3s; }
+        details:hover { border-color: #4a4a5d; }
+        summary { font-size: 14px; font-weight: 600; color: #ffcccc; outline: none; list-style: none; position: relative; padding-right: 20px; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; position: absolute; right: 0; top: 0; font-size: 16px; color: #e63946; }
+        details[open] summary::after { content: '-'; }
+        details p { font-size: 13px; color: #b8b8c7; margin-top: 12px; line-height: 1.5; border-top: 1px dashed #3a3a4d; padding-top: 10px; }
 
         /* Perisai Hukum */
-        .legal-shield { background: #0a0a0a; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed #444; }
-        .legal-item { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #222; }
+        .legal-shield { background: #101016; padding: 20px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #2a2a35; }
+        .legal-item { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #222230; }
         .legal-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-        .legal-item h4 { font-size: 13px; color: #d32f2f; margin-bottom: 3px; }
-        .legal-item p { font-size: 12px; color: #bbb; }
+        .legal-item h4 { font-size: 14px; color: #e63946; margin-bottom: 5px; }
+        .legal-item p { font-size: 13px; color: #a89f9f; }
+
+        /* --- FITUR BARU: Form Laporan Aman --- */
+        .secure-form { background: #1a1a24; padding: 20px; border-radius: 12px; border: 1px solid #2a2a35; margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 12px; color: #9a9ab0; margin-bottom: 5px; }
+        .input-group input, .input-group textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #3a3a4d; background: #12121a; color: white; font-size: 13px; outline: none; transition: 0.3s; }
+        .input-group input:focus, .input-group textarea:focus { border-color: #e63946; }
+        .form-note { font-size: 11px; color: #888; font-style: italic; margin-bottom: 15px; text-align: center; }
+        .btn-submit { width: 100%; background: #e63946; color: white; border: none; padding: 14px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-submit:hover { background: #c12a36; }
 
         /* Footer */
-        .footer { text-align: center; padding: 25px 20px; font-size: 12px; color: #666; background: #050505; border-top: 1px solid #1a1a1a; }
-        .footer span { color: #d32f2f; font-weight: bold; }
+        .footer { text-align: center; padding: 30px 20px; font-size: 12px; color: #666; background: #0a0a0f; border-top: 1px solid #1a1a24; }
+        .footer span { color: #e63946; font-weight: bold; }
 
         /* --- UI CHAT AI POPUP --- */
-        #chat-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-        .chat-container { width: 100%; max-width: 440px; background: #141414; border-radius: 12px; overflow: hidden; border: 1px solid #333; display: flex; flex-direction: column; height: 80vh; }
-        .chat-header { background: #220000; padding: 15px; text-align: center; color: white; border-bottom: 1px solid #d32f2f; position: relative; }
-        .chat-header h3 { font-size: 16px; margin: 0; }
-        .chat-header p { font-size: 11px; color: #aaa; margin: 0; }
-        .close-btn { position: absolute; right: 15px; top: 15px; color: #fff; cursor: pointer; font-weight: bold; font-size: 18px; }
-        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0a0a0a; }
-        .msg { padding: 10px 14px; border-radius: 12px; font-size: 13px; max-width: 85%; line-height: 1.4; word-wrap: break-word; }
-        .msg-ai { background: #1a1a1a; color: #ddd; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #333; }
-        .msg-user { background: #d32f2f; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .chat-input-area { display: flex; padding: 10px; background: #141414; border-top: 1px solid #333; }
-        #chat-input { flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #444; background: #050505; color: white; outline: none; font-size: 13px; }
-        #send-btn { background: #d32f2f; color: white; border: none; padding: 10px 15px; margin-left: 8px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        #chat-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
+        .chat-container { width: 100%; max-width: 440px; background: #15151e; border-radius: 15px; overflow: hidden; border: 1px solid #3a3a4d; display: flex; flex-direction: column; height: 85vh; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .chat-header { background: linear-gradient(135deg, #2a1115, #1f0b0f); padding: 18px; text-align: center; color: white; border-bottom: 1px solid #e63946; position: relative; }
+        .chat-header h3 { font-size: 16px; margin: 0; letter-spacing: 0.5px; }
+        .chat-header p { font-size: 11px; color: #a89f9f; margin: 3px 0 0; }
+        .close-btn { position: absolute; right: 18px; top: 18px; color: #fff; cursor: pointer; font-weight: bold; font-size: 20px; opacity: 0.7; transition: 0.3s; }
+        .close-btn:hover { opacity: 1; }
+        .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #0d0d12; }
+        .msg { padding: 12px 16px; border-radius: 14px; font-size: 13px; max-width: 85%; line-height: 1.5; word-wrap: break-word; }
+        .msg-ai { background: #1a1a24; color: #dcdcdc; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid #2a2a35; }
+        .msg-user { background: #e63946; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .chat-input-area { display: flex; padding: 12px; background: #15151e; border-top: 1px solid #2a2a35; }
+        #chat-input { flex: 1; padding: 12px 15px; border-radius: 20px; border: 1px solid #3a3a4d; background: #0d0d12; color: white; outline: none; font-size: 13px; transition: 0.3s; }
+        #chat-input:focus { border-color: #e63946; }
+        #send-btn { background: #e63946; color: white; border: none; padding: 10px 18px; margin-left: 10px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        #send-btn:hover { background: #c12a36; }
     </style>
 </head>
 <body>
@@ -87,8 +129,8 @@
     </div>
 
     <div class="header">
-        <h1>AD-JUST</h1>
-        <p>Aksi Duta Jejaring Untuk Stop TPKS</p>
+        <h1>BAKTI</h1>
+        <p>Bersama Adib Kekerasan Seksual Teratasi</p>
     </div>
 
     <div class="content" id="main-content">
@@ -98,7 +140,55 @@
 
         <a href="https://ig.me/m/laradiasa_" class="btn-urgent" target="_blank">🚨 BANTUAN DARURAT (DM IG) 🚨</a>
 
-        <h2 class="section-title">🛡️ Layanan Darurat Profesional</h2>
+        <!-- RUANG PEMULIHAN (FITUR BARU) -->
+        <h2 class="section-title">🌿 Ruang Pemulihan</h2>
+        <div class="recovery-box">
+            <p style="font-size: 13px; color: #dcdcdc;">Ikuti lingkaran ini. Tarik napas saat membesar, hembuskan saat mengecil.</p>
+            <div class="breathe-container">
+                <div class="breathe-circle" id="breathe-text">Tarik Napas</div>
+            </div>
+            <p class="recovery-text">"Tidak ada satupun dari kejadian itu yang merupakan kesalahanmu. Kamu pantas mendapatkan perlindungan."</p>
+        </div>
+
+        <!-- ALUR PELAPORAN (FITUR BARU) -->
+        <h2 class="section-title mt-30">📋 Alur Melapor yang Benar</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h4>1. Amankan Diri & Barang Bukti</h4>
+                <p>Jangan hapus chat, foto, atau pakaian saat kejadian. Screenshot semua ancaman jika terjadi secara online.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>2. Cerita ke Orang Kepercayaan</h4>
+                <p>Hubungi sahabat, Duta GenRe, atau konselor untuk menemanimu secara psikologis.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>3. Hubungi Layanan SAPA 129 / UPTD</h4>
+                <p>Mereka akan memberikan pendampingan hukum dan psikologis gratis dari negara.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>4. Proses Hukum Tertutup</h4>
+                <p>Sesuai UU TPKS, identitasmu akan dirahasiakan selama proses visum dan penyidikan.</p>
+            </div>
+        </div>
+
+        <!-- KAMUS HUKUM INTERAKTIF (FITUR BARU) -->
+        <h2 class="section-title mt-30">📖 Kamus Hukum Remaja</h2>
+        <div class="accordion-container">
+            <details>
+                <summary>Apa itu UU TPKS?</summary>
+                <p>Undang-Undang Tindak Pidana Kekerasan Seksual (UU No. 12 Tahun 2022). Aturan khusus yang dibuat negara untuk melindungi korban pelecehan, mulai dari catcalling hingga kekerasan fisik.</p>
+            </details>
+            <details>
+                <summary>KBGO (Kekerasan Siber)</summary>
+                <p>Kekerasan Berbasis Gender Online. Contohnya: diancam foto pribadinya akan disebar (Revenge Porn), pelecehan via chat, atau akun dipalsukan.</p>
+            </details>
+            <details>
+                <summary>Apa itu Restitusi?</summary>
+                <p>Ganti kerugian yang wajib dibayarkan oleh pelaku kepada korban untuk biaya pengobatan medis, psikologis, maupun kerugian materi selama kasus berjalan.</p>
+            </details>
+        </div>
+
+        <h2 class="section-title mt-30">🛡️ Layanan Darurat Profesional</h2>
         <div class="contact-grid">
             <a href="tel:129" class="contact-item"><strong>SAPA 129</strong><span>Kementerian PPPA</span></a>
             <a href="https://wa.me/628111129129" class="contact-item" target="_blank"><strong>WA SAPA 129</strong><span>Chat Whatsapp PPPA</span></a>
@@ -110,9 +200,9 @@
             <a href="https://ig.me/m/kemenpppa" class="contact-item" target="_blank"><strong>UPTD PPA</strong><span>Unit Daerah (Cek IG)</span></a>
         </div>
 
-        <h2 class="section-title">🤝 Ruang Curhat & Lapor</h2>
+        <h2 class="section-title mt-30">🤝 Ruang Curhat & Lapor</h2>
         <div class="feature-box">
-            <h4>Ngobrol dengan Duta GenRe</h4>
+            <h4>Ngobrol dengan Mas Adib</h4>
             <p>Ceritakan masalahmu secara rahasia. Saya siap mendengarkan dan membantu mencari jalan keluar yang aman.</p>
             <a href="https://ig.me/m/laradiasa_" class="btn-outline" target="_blank">Kirim Pesan Anonim (IG)</a>
         </div>
@@ -123,34 +213,53 @@
             <button class="btn-outline" onclick="openChat()">Mulai Chat dengan AI</button>
         </div>
 
-        <h2 class="section-title">⚖️ Perisai Hukummu</h2>
+        <!-- FORM LAPORAN AMAN (FITUR BARU) -->
+        <h2 class="section-title mt-30">✉️ Form Laporan Aman</h2>
+        <div class="secure-form">
+            <p class="form-note">Laporan ini akan dikirim langsung ke email Mas Adib. Kamu boleh menggunakan nama samaran.</p>
+            <div class="input-group">
+                <label>Nama / Nama Samaran</label>
+                <input type="text" id="lapor-nama" placeholder="Cth: Bunga">
+            </div>
+            <div class="input-group">
+                <label>Kontak yang bisa dihubungi (IG/WA/Email)</label>
+                <input type="text" id="lapor-kontak" placeholder="Opsional">
+            </div>
+            <div class="input-group">
+                <label>Ceritakan Singkat Kejadiannya</label>
+                <textarea id="lapor-pesan" rows="4" placeholder="Ketik di sini..."></textarea>
+            </div>
+            <button class="btn-submit" onclick="kirimEmailKeAdib()">Kirim Laporan Rahasia</button>
+        </div>
+
+        <h2 class="section-title mt-30">⚖️ Perisai Hukummu</h2>
         <div class="legal-shield">
             <div class="legal-item">
-                <h4>1. Hukum Selalu Berpihak Padamu</h4>
-                <p>Berdasarkan UU TPKS No. 12 Tahun 2022, sekecil apa pun bentuk pelecehan adalah kejahatan. Kamu adalah korban yang berhak atas keadilan, bukan pihak yang patut disalahkan.</p>
+                <h4>⚖️ 1. Hukum Selalu Berpihak Padamu</h4>
+                <p>UU TPKS No. 12 Tahun 2022 adalah tamengmu! Sekecil apa pun bentuk pelecehan, itu adalah kejahatan. Kamu adalah korban yang berhak atas keadilan, bukan pihak yang patut disalahkan.</p>
             </div>
             <div class="legal-item">
-                <h4>2. Jaminan Kerahasiaan Identitas</h4>
-                <p>Jangan takut namamu tersebar. Pasal 42 UU TPKS mewajibkan aparat penegak hukum merahasiakan identitas korban dari publik dan media massa.</p>
+                <h4>🕵️‍♀️ 2. Rahasia Terjamin 100%</h4>
+                <p>Takut namamu viral? Tenang! Pasal 42 UU TPKS mewajibkan aparat penegak hukum dan media mengunci rapat identitasmu dari publik.</p>
             </div>
             <div class="legal-item">
-                <h4>3. Ancaman Online & Sebar Foto (KBGO)</h4>
-                <p>Diancam foto/video pribadimu akan disebar? Pelaku pemerasan siber dan *revenge porn* dapat dipenjara berlapis melalui UU ITE dan UU TPKS.</p>
+                <h4>📱 3. Ancaman Online (KBGO)? Lawan!</h4>
+                <p>Diancam foto/video pribadimu akan disebar (Revenge Porn)? Pelaku bisa dipenjara berlapis lewat UU ITE & UU TPKS. Jangan takut gertakan mereka!</p>
             </div>
             <div class="legal-item">
-                <h4>4. Pelecehan Verbal / Catcalling</h4>
-                <p>Siulan, godaan bernada seksual, atau komentar merendahkan fisik di jalan bukanlah candaan. Tindakan pelecehan non-fisik ini dapat dipidana hingga 9 bulan penjara (Pasal 5 UU TPKS).</p>
+                <h4>🚫 4. Catcalling Itu Pidana!</h4>
+                <p>Siulan, godaan bernada seksual, atau komentar merendahkan fisik di jalan bukan candaan, melainkan pelecehan non-fisik (Pasal 5 UU TPKS) yang bisa dipenjara hingga 9 bulan.</p>
             </div>
             <div class="legal-item">
-                <h4>5. Hak Pemulihan Sepenuhnya</h4>
-                <p>Korban tidak hanya mendapat keadilan hukum, tetapi juga berhak menerima pemulihan psikologis, medis, dan Restitusi (ganti rugi dari pelaku) yang difasilitasi oleh negara.</p>
+                <h4>❤️‍🩹 5. Hak Pemulihan Total</h4>
+                <p>Negara hadir untukmu! Selain keadilan hukum, kamu berhak atas pemulihan psikologis, medis, hingga Restitusi (ganti rugi dari pelaku).</p>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        By <span>Adib Al Hakim</span> (12)<br>
-        Ruang Aman & Literasi Remaja
+        By <span>Mas Adib</span><br>
+        kamu ngga sendirian
     </div>
 </div>
 
@@ -172,18 +281,16 @@
 </div>
 
 <script>
-    // --- 1. KONFIGURASI API GROQ (GANTI DENGAN API KEY KAMU) ---
-    const API_KEY = "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"; 
+    const API_KEY = "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"; 
     
-    // Prompt Rahasia agar AI bertingkah seperti sahabat yang berempati dan paham regulasi
-    const systemPrompt = "Kamu adalah AI 'Sahabat Hukum' dari program AD-JUST buatan Duta GenRe Adib Al Hakim. Tugasmu: mendengarkan keluh kesah remaja soal kekerasan seksual, berikan empati luar biasa, JANGAN MENGHAKIMI, gunakan bahasa gaul tapi sopan (seperti 'kamu', 'aku', 'nggak'). Jika relevan, beritahu bahwa mereka dilindungi oleh UU TPKS No 12 Tahun 2022. Jawab secara singkat, padat, dan menenangkan. Jangan buat jawaban panjang bertele-tele.";
+    // Prompt AI diperbarui agar paham Hukum, Mental Health, validasi perasaan, dan GenRe Kemendukbangga
+    const systemPrompt = "Kamu adalah AI 'Sahabat Hukum' dari program BAKTI (Bersama Adib Kekerasan Seksual Teratasi) buatan Mas Adib. Tugasmu: mendengarkan keluh kesah remaja, validasi perasaan mereka, berikan empati luar biasa, dan JANGAN MENGHAKIMI. Kamu paham mendalam tentang Hukum (terutama UU TPKS No 12 Tahun 2022), Kesehatan Mental (Mental Health), dan Program GenRe dari Kemendukbangga. Gunakan bahasa gaul tapi sopan ('kamu', 'aku', 'nggak'). Jawab secara singkat, padat, menenangkan, dan buat mereka merasa tidak sendirian. Jangan buat jawaban panjang bertele-tele.";
 
-    // Format History Pesan Khusus Groq / OpenAI
     let conversationHistory = [
         { "role": "system", "content": systemPrompt }
     ];
 
-    // --- 2. LOGIKA UI & ANIMASI ---
+    // Splash Screen Logic
     setTimeout(() => {
         const splash = document.getElementById('splash');
         const content = document.getElementById('main-content');
@@ -191,13 +298,14 @@
         setTimeout(() => { splash.style.display = 'none'; content.style.display = 'block'; }, 800);
     }, 3000);
 
+    // Quotes Logic
     const quotes = [
         "Bernapaslah pelan-pelan. Kamu aman di sini.", 
         "Kamu berharga, lebih dari yang kamu tahu.", 
         "Tidak ada satu pun dari kejadian itu yang merupakan salahmu.", 
         "Mencari bantuan adalah tanda kekuatan, bukan kelemahan.",
-        "Kami percaya padamu. Suaramu penting.",
-        "Masa depanmu masih panjang dan cerah. Jangan menyerah."
+        "Jangan takut atas kekerasan seksual.",
+        "Kalian masih muda jangan takut untuk berproses."
     ];
     let quoteIndex = 0; const quoteBox = document.getElementById('quote-box');
     setInterval(() => {
@@ -205,7 +313,41 @@
         setTimeout(() => { quoteIndex = (quoteIndex + 1) % quotes.length; quoteBox.textContent = `"${quotes[quoteIndex]}"`; quoteBox.style.opacity = '1'; }, 500);
     }, 4500);
 
-    // --- 3. LOGIKA CHAT AI (MENGGUNAKAN GROQ API) ---
+    // Breathing Animation Text Logic
+    const breatheText = document.getElementById('breathe-text');
+    setInterval(() => {
+        if(breatheText.innerText === "Tarik Napas") {
+            setTimeout(() => { breatheText.innerText = "Hembuskan"; }, 4000);
+        } else {
+            setTimeout(() => { breatheText.innerText = "Tarik Napas"; }, 4000);
+        }
+    }, 8000);
+
+    // Logika Kirim Email Laporan Rahasia
+    function kirimEmailKeAdib() {
+        const nama = document.getElementById('lapor-nama').value || 'Anonim';
+        const kontak = document.getElementById('lapor-kontak').value || 'Tidak dicantumkan';
+        const pesan = document.getElementById('lapor-pesan').value;
+        
+        if(!pesan) {
+            alert("Tolong ceritakan sedikit kejadiannya agar kami bisa membantu kamu.");
+            return;
+        }
+
+        const emailTujuan = "adibalhakim9@gmail.com";
+        const subject = encodeURIComponent("Laporan Rahasia BAKTI - Ruang Aman");
+        const body = encodeURIComponent(`Nama/Samaran: ${nama}\nKontak: ${kontak}\n\nLaporan Kejadian:\n${pesan}\n\n---\nDikirim melalui Web BAKTI`);
+        
+        // Membuka aplikasi email default user (Gmail/Mail app)
+        window.location.href = `mailto:${emailTujuan}?subject=${subject}&body=${body}`;
+        
+        // Kosongkan form setelah ditekan
+        document.getElementById('lapor-nama').value = '';
+        document.getElementById('lapor-kontak').value = '';
+        document.getElementById('lapor-pesan').value = '';
+    }
+
+    // Chat AI Logic
     const chatModal = document.getElementById('chat-modal');
     const chatMessages = document.getElementById('chat-messages');
     const chatInput = document.getElementById('chat-input');
@@ -230,7 +372,6 @@
         appendMessage(text, 'user');
         chatInput.value = '';
         
-        // Simpan input user ke history
         conversationHistory.push({ "role": "user", "content": text });
 
         const typingId = "typing-" + Date.now();
@@ -242,7 +383,6 @@
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
         try {
-            // Memanggil endpoint Groq API
             const response = await fetch(`https://api.groq.com/openai/v1/chat/completions`, {
                 method: "POST",
                 headers: { 
@@ -250,7 +390,7 @@
                     "Authorization": `Bearer ${API_KEY}`
                 },
                 body: JSON.stringify({
-                    model: "llama-3.1-8b-instant", // Model bawaan Groq yang kencang dan akurat
+                    model: "llama-3.1-8b-instant",
                     messages: conversationHistory
                 })
             });
@@ -258,11 +398,9 @@
             const data = await response.json();
             document.getElementById(typingId).remove(); 
 
-            // Menangkap balasan dari Groq
             if(data.choices && data.choices.length > 0) {
                 const aiText = data.choices[0].message.content;
                 appendMessage(aiText, 'ai');
-                // Simpan balasan AI ke history agar chat nyambung
                 conversationHistory.push({ "role": "assistant", "content": aiText });
             } else {
                 appendMessage("Maaf, sistem sedang sibuk. Coba lagi nanti ya.", 'ai');
